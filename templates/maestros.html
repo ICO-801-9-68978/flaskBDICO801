@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Flask IDGS - Maestros</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.css" rel="stylesheet" />
+</head>
+<body class="bg-gray-50">
+
+    <nav class="bg-slate-900 border-gray-200 px-4 lg:px-6 py-2.5 mb-10">
+        <div class="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">
+            <a href="/" class="flex items-center">
+                <span class="self-center text-xl font-semibold whitespace-nowrap text-white">Flask IDGS</span>
+            </a>
+            <div class="flex items-center lg:order-2">
+                <a href="/" class="text-white bg-blue-700 hover:bg-blue-800 font-medium rounded-lg text-sm px-5 py-2.5">Regresar a Alumnos</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mx-auto p-4">
+        
+        <div class="relative overflow-x-auto shadow-md sm:rounded-lg max-w-5xl mx-auto">
+            
+            <div class="bg-green-500 p-3 text-white font-bold flex items-center">
+                <span class="mr-2 text-lg">👤+</span> Nuevo Maestro
+            </div>
+
+            <table class="w-full text-sm text-left text-gray-400">
+                <thead class="text-xs uppercase bg-slate-700 text-gray-400">
+                    <tr>
+                        <th scope="col" class="px-6 py-3">Matrícula</th>
+                        <th scope="col" class="px-6 py-3">Nombre</th>
+                        <th scope="col" class="px-6 py-3">Apellidos</th>
+                        <th scope="col" class="px-6 py-3">Especialidad</th>
+                        <th scope="col" class="px-6 py-3 text-center">Editar</th>
+                        <th scope="col" class="px-6 py-3 text-center">Detalles</th>
+                        <th scope="col" class="px-6 py-3 text-center">Eliminar</th>
+                    </tr>
+                </thead>
+                <tbody class="bg-slate-800 border-b border-gray-700">
+                    {% for m in maestros %}
+                    <tr class="hover:bg-slate-700 border-b border-gray-700">
+                        <td class="px-6 py-4 font-bold text-white">{{ m.matricula }}</td>
+                        <td class="px-6 py-4 text-blue-300">{{ m.nombre }}</td>
+                        <td class="px-6 py-4 text-blue-300">{{ m.apellidos }}</td>
+                        <td class="px-6 py-4 text-gray-300">{{ m.especialidad }}</td>
+                        
+                        <td class="px-6 py-4 text-center">
+                            <button class="bg-orange-500 hover:bg-orange-600 text-white px-3 py-1.5 rounded-lg text-xs font-bold">
+                                📝 Editar
+                            </button>
+                        </td>
+                        <td class="px-6 py-4 text-center">
+                            <button class="bg-purple-600 hover:bg-purple-700 text-white px-3 py-1.5 rounded-lg text-xs font-bold">
+                                👁️ Detalles
+                            </button>
+                        </td>
+                        <td class="px-6 py-4 text-center">
+                            <button class="bg-red-600 hover:bg-red-700 text-white px-3 py-1.5 rounded-lg text-xs font-bold">
+                                🗑️ Eliminar
+                            </button>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.js"></script>
+</body>
+</html>
