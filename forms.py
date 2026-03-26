@@ -1,14 +1,15 @@
 from wtforms import Form
-from wtforms import StringField, IntegerField, EmailField
+from wtforms import StringField, IntegerField, EmailField,PasswordField
 from wtforms import validators
 
+
 class UserForm(Form):
-    id = IntegerField("Matricula")
-    nombre = StringField('Nombre')
-    apaterno = StringField('Apaterno')
-    amaterno = StringField('Amaterno')
-    edad = IntegerField("Edad")
-    correo = EmailField('Correo')
+    id=IntegerField("ID")
+    nombre=StringField('Nombre')
+    apaterno=StringField('Apaterno')
+    amaterno=StringField('Amaterno')
+    edad=IntegerField("Edad")
+    correo=EmailField('Correo')
 
 class MaestrosForm(Form):
     matricula=StringField('matricula', [
@@ -25,6 +26,6 @@ class MaestrosForm(Form):
     especialidad=StringField('Especialidad', [
         validators.DataRequired(message="Ingrese una especialidad válida")
     ])
-    email=StringField('Correo', [
+    email=StringField('Email', [
         validators.Email(message="Ingrese un correo válido")
     ])

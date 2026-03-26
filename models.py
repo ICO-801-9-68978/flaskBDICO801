@@ -1,25 +1,26 @@
-from flask_sqlalchemy import SQLAlchemy
+from flask_sqlalchemy import SQLAlchemy 
+import datetime
 
 db = SQLAlchemy()
 
 class Alumnos(db.Model):
     __tablename__ = 'alumnos'
     id = db.Column(db.Integer, primary_key=True)
-    nombre = db.Column(db.String(50))
-    apaterno = db.Column(db.String(100))
-    amaterno = db.Column(db.String(50))
-    email = db.Column(db.String(50))
-
+    nombre = db.Column(db.String(250), nullable=False)
+    apaterno = db.Column(db.String(50), nullable=False)
+    amaterno = db.Column(db.String(150), nullable=False)
+    edad = db.Column(db.Integer, nullable=False)
+    correo = db.Column(db.String(100), nullable=False)
+    cursos = db.relationship('Curso', secondary='inscripciones', back_populates='alumnos')
 class Maestros(db.Model):
-    matricula = db.Column(db.Integer, primary_key=True)
-    nombre = db.Column(db.String(100))
-    apellidos = db.Column(db.String(50))
-    especialidad = db.Column(db.String(50))
-    email = db.Column(db.String(100))
-
-    
+    __tablename__='maestros'
+    matricula=db.Column(db.Integer,primary_key=True)
+    nombre=db.Column(db.String(50))
+    apellidos=db.Column(db.String(50))
+    especialidad=db.Column(db.String(50))
+    email=db.Column(db.String(50))
+     
     cursos = db.relationship('Curso', back_populates='maestro')
-
 class Curso(db.Model):
     __tablename__ = 'cursos'
 
