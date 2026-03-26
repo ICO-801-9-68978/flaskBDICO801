@@ -94,6 +94,12 @@ def eliminar():
 @app.route("/detalles",methods=['GET','POST'])
 def detalles():
     create_form=forms.UserForm(request.form)
+    id=None
+    nombre=None
+    apaterno=None
+    amaterno=None
+    edad=None
+    correo=None
     if request.method=='GET':
          id=request.args.get('id')
          #  select * from alumnos where id == id
