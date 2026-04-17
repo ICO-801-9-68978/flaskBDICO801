@@ -1,0 +1,57 @@
+{% extends "layout.html" %} 
+{% block container %}
+
+<div class="group py-20 relative overflow-x-auto sm:rounded-lg flex justify-center">
+  <div class="relative bg-white dark:bg-gray-800 max-w-lg w-full p-8 border border-gray-200 dark:border-gray-700 rounded-lg shadow-lg">
+    
+    <div class="flex flex-col items-center">
+      <img class="w-24 h-24 mb-4 rounded-full shadow-md border-4 border-indigo-100" src="{{url_for('static',filename='img/usuario.png')}}" alt="Foto de Perfil" />
+      
+      <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white text-center">
+        {{ mae.nombre }} {{ mae.apellidos }}
+      </h5>
+      
+      <span class="bg-indigo-100 text-indigo-800 text-sm font-semibold me-2 px-3 py-1 rounded-full dark:bg-indigo-900 dark:text-indigo-300 mb-6">
+        {{ mae.especialidad }}
+      </span>
+
+      <div class="w-full text-left bg-gray-50 dark:bg-gray-700 p-4 rounded-lg mb-6 border border-gray-100 dark:border-gray-600">
+        <h3 class="mb-2 text-sm font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Datos de Contacto</h3>
+        <p class="mb-1 text-md text-gray-800 dark:text-gray-200"><span class="font-bold">Matrícula:</span> {{ mae.matricula }}</p>
+        <p class="mb-1 text-md text-gray-800 dark:text-gray-200"><span class="font-bold">Correo:</span> {{ mae.email }}</p>
+      </div>
+      
+      <div class="w-full text-left border-t border-gray-200 dark:border-gray-600 pt-6 mt-2">
+        <h3 class="mb-4 text-lg font-bold text-gray-900 dark:text-white flex items-center gap-2">
+          <svg class="w-5 h-5 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+          Cursos Impartidos ({{ mae.cursos|length }})
+        </h3>
+        
+        {% if mae.cursos %}
+          <div class="grid grid-cols-1 gap-3">
+            {% for curso in mae.cursos %}
+              <div class="bg-orange-50 dark:bg-gray-700 border border-orange-200 dark:border-gray-600 p-3 rounded-lg flex justify-between items-center">
+                <div>
+                  <p class="font-bold text-orange-800 dark:text-orange-400">{{ curso.nombre }}</p>
+                  <p class="text-xs text-gray-500 dark:text-gray-400">{{ curso.descripcion }}</p>
+                </div>
+                <span class="text-xs font-bold text-gray-400">ID: {{ curso.id }}</span>
+              </div>
+            {% endfor %}
+          </div>
+        {% else %}
+          <div class="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg text-center border border-dashed border-gray-300 dark:border-gray-600">
+            <p class="text-gray-500 dark:text-gray-400 italic">Este maestro aún no tiene cursos asignados.</p>
+          </div>
+        {% endif %}
+      </div>
+      <div class="flex mt-8 gap-4 w-full justify-center">
+        <a href="{{ url_for('maestros.maestros') }}" class="w-full bg-gray-800 text-white px-6 py-3 rounded-lg shadow flex items-center justify-center gap-2 hover:bg-gray-900 transition-colors font-medium">
+          ← Regresar a Maestros
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

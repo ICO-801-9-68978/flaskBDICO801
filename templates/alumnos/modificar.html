@@ -1,0 +1,41 @@
+{% extends "layout.html" %} 
+{% block container %} 
+{% import "_macros.html" as macros %}
+
+<div class="py-20 flex justify-center px-4">
+  <div class="bg-white dark:bg-gray-800 max-w-2xl w-full p-10 rounded-3xl shadow-2xl border border-gray-100 dark:border-gray-700">
+    <h2 class="text-3xl font-extrabold text-orange-600 mb-8 text-center">Actualizar Información</h2>
+    
+    <form action="{{ url_for('alumnos.modificar', id=form.id.data) }}" method="POST" novalidate class="space-y-6">
+      <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+      {{ form.id(class="hidden") }}
+      
+      <div class="grid md:grid-cols-2 gap-6">
+        <div class="relative z-0 w-full group">
+          {{macros.camposNuevos(form.nombre, class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 focus:outline-none focus:ring-0 focus:border-orange-500 peer")}}
+        </div>
+        <div class="relative z-0 w-full group">
+          {{macros.camposNuevos(form.apaterno, class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 focus:outline-none focus:ring-0 focus:border-orange-500 peer")}}
+        </div>
+        <div class="relative z-0 w-full group">
+          {{macros.camposNuevos(form.amaterno, class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 focus:outline-none focus:ring-0 focus:border-orange-500 peer")}}
+        </div>
+        <div class="relative z-0 w-full group">
+          {{macros.camposNuevos(form.edad, class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 focus:outline-none focus:ring-0 focus:border-orange-500 peer")}}
+        </div>
+      </div>
+      
+      <div class="relative z-0 w-full group">
+        {{macros.camposNuevos(form.correo, class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 focus:outline-none focus:ring-0 focus:border-orange-500 peer")}}
+      </div>
+
+      <div class="flex gap-4 pt-4">
+        <input type="submit" value="Guardar Cambios" class="flex-1 cursor-pointer text-white bg-orange-600 hover:bg-orange-700 font-bold rounded-2xl py-4 shadow-lg transition-all">
+        <a href="{{ url_for('alumnos.alumnos') }}" class="flex-1 text-center text-gray-700 bg-gray-100 hover:bg-gray-200 font-bold py-4 rounded-2xl transition-all">
+          Cancelar
+        </a>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}

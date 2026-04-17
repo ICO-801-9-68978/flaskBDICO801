@@ -1,0 +1,28 @@
+{% extends "layout.html" %} 
+{% block container %} 
+{% import "_macros.html" as macros %}
+
+<div class="py-20 flex justify-center px-4">
+  <div class="bg-white dark:bg-gray-800 max-w-lg w-full p-10 rounded-3xl shadow-2xl border-t-8 border-red-600">
+    <h2 class="text-3xl font-extrabold text-red-600 mb-4 text-center">Baja de Estudiante</h2>
+    <p class="text-center text-gray-500 mb-10">¿Estás seguro de que deseas eliminar permanentemente a este alumno? Esta acción no se puede deshacer.</p>
+    
+    <form action="{{ url_for('alumnos.eliminar', id=form.id.data) }}" method="POST" novalidate>
+      <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+      {{ form.id(class="hidden") }}
+      
+      <div class="bg-red-50 dark:bg-gray-900 p-6 rounded-2xl mb-8 space-y-2 opacity-60 pointer-events-none">
+        <p class="text-lg font-bold text-gray-900 dark:text-white">{{ form.nombre.data }} {{ form.apaterno.data }}</p>
+        <p class="text-sm text-gray-600">{{ form.correo.data }}</p>
+      </div>
+
+      <div class="flex gap-4">
+        <input type="submit" value="Confirmar Baja" class="flex-1 cursor-pointer text-white bg-red-600 hover:bg-red-700 font-bold rounded-2xl py-4 shadow-lg transition-all">
+        <a href="{{ url_for('alumnos.alumnos') }}" class="flex-1 text-center text-gray-700 bg-gray-100 hover:bg-gray-200 font-bold py-4 rounded-2xl transition-all">
+          Cancelar
+        </a>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}

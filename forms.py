@@ -1,31 +1,34 @@
-from wtforms import Form
-from wtforms import StringField, IntegerField, EmailField,PasswordField
-from wtforms import validators
-
+from wtforms import Form, StringField, IntegerField, EmailField, SelectField, validators
 
 class UserForm(Form):
-    id=IntegerField("ID")
-    nombre=StringField('Nombre')
-    apaterno=StringField('Apaterno')
-    amaterno=StringField('Amaterno')
-    edad=IntegerField("Edad")
-    correo=EmailField('Correo')
+    id = IntegerField("ID")
+    nombre = StringField('Nombre')
+    apaterno = StringField('Apaterno')
+    amaterno = StringField('Amaterno')
+    edad = IntegerField("Edad")
+    correo = EmailField('Correo')
 
 class MaestrosForm(Form):
-    matricula=StringField('matricula', [
-        validators.DataRequired(message="El campo es requerido"),
-        validators.length(min=3, max=10, message="Ingrese una matricula válida")
-    ])
-    nombre=StringField('Nombre', [
-        validators.DataRequired(message="El campo es requerido"),
-        validators.length(min=3, max=10, message="Ingrese un nombre válido")
-    ])
-    apellidos=StringField('Apellidos', [
-        validators.DataRequired(message="El campo es requerido")
-    ])
-    especialidad=StringField('Especialidad', [
-        validators.DataRequired(message="Ingrese una especialidad válida")
-    ])
-    email=StringField('Email', [
-        validators.Email(message="Ingrese un correo válido")
-    ])
+    matricula = StringField('Matrícula', [validators.DataRequired()])
+    nombre = StringField('Nombre', [validators.DataRequired()])
+    apellidos = StringField('Apellidos', [validators.DataRequired()])
+    especialidad = StringField('Especialidad', [validators.DataRequired()])
+    email = StringField('Email', [validators.Email()])
+
+class CursosForm(Form):
+    id = IntegerField("ID")
+    nombre = StringField('Nombre del Curso', [validators.DataRequired()])
+    descripcion = StringField('Descripción')
+    maestro_id = SelectField('Maestro Asignado', coerce=int)
+
+class InscripcionForm(Form):
+    alumno_id = SelectField('Seleccionar Alumno', coerce=int)
+   
+class ConsultaAlumnosCursoForm(Form):
+    curso_id = SelectField('Seleccionar Curso', coerce=int)
+
+class ConsultaCursosAlumnoForm(Form):
+    alumno_id = SelectField('Seleccionar Alumno', coerce=int)
+
+class ConsultaCursosMaestroForm(Form):
+    maestro_id = SelectField('Seleccionar Maestro', coerce=int)

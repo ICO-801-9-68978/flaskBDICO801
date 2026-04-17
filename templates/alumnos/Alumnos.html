@@ -1,0 +1,67 @@
+{% extends "layout.html" %} 
+{% block container %} 
+
+<div class="py-10 px-4 max-w-7xl mx-auto">
+  
+  <div class="flex flex-col sm:flex-row justify-between items-center mb-8 gap-4">
+    <a href="{{ url_for('alumnos.index') }}" class="inline-flex items-center gap-2 px-5 py-2.5 bg-gray-600 text-white font-medium rounded-lg hover:bg-gray-700 transition-colors shadow-sm">
+      <span class="font-bold text-xl leading-none">&larr;</span>
+      Regresar al Menú
+    </a>
+    
+    <a href="{{ url_for('alumnos.insertar') }}" class="flex items-center gap-2 bg-blue-600 text-white px-6 py-3 rounded-xl hover:bg-blue-700 font-bold transition-all shadow-lg hover:-translate-y-1">
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"></path></svg>
+      Registrar Nuevo Alumno
+    </a>
+  </div>
+
+  <div class="bg-white dark:bg-gray-800 rounded-3xl shadow-lg border border-gray-100 dark:border-gray-700 overflow-hidden">
+    
+    <div class="p-6 bg-gray-50 dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700">
+        <h2 class="text-2xl font-extrabold text-gray-800 dark:text-white">Estudiantes Matriculados</h2>
+    </div>
+    
+    <div class="overflow-x-auto">
+        <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+        <thead class="text-xs text-gray-700 uppercase bg-gray-100 dark:bg-gray-700">
+            <tr>
+            <th class="px-6 py-4">ID</th>
+            <th class="px-6 py-4">Nombre Completo</th>
+            <th class="px-6 py-4">Correo</th>
+            <th class="px-6 py-4 text-center">Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for alum in alumno %}
+            <tr class="border-b dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 transition-colors">
+            <td class="px-6 py-4 font-bold text-gray-900 dark:text-white">{{ alum.id }}</td>
+            <td class="px-6 py-4 font-medium text-gray-900 dark:text-white">
+                {{ alum.nombre }} {{ alum.apaterno }} {{ alum.amaterno }}
+            </td>
+            <td class="px-6 py-4">{{ alum.correo }}</td>
+            <td class="px-6 py-4 flex justify-center gap-3">
+                <a href="{{ url_for('alumnos.detalles', id=alum.id) }}" class="p-2 bg-purple-100 text-purple-600 rounded-lg hover:bg-purple-600 hover:text-white transition-all shadow-sm" title="Detalles">
+                    👁️
+                </a>
+                <a href="{{ url_for('alumnos.modificar', id=alum.id) }}" class="p-2 bg-orange-100 text-orange-600 rounded-lg hover:bg-orange-600 hover:text-white transition-all shadow-sm" title="Editar">
+                    ✏️
+                </a>
+                <a href="{{ url_for('alumnos.eliminar', id=alum.id) }}" class="p-2 bg-red-100 text-red-600 rounded-lg hover:bg-red-600 hover:text-white transition-all shadow-sm" title="Eliminar">
+                    🗑️
+                </a>
+            </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+        </table>
+        
+        {% if not alumno %}
+        <div class="text-center py-10">
+            <p class="text-gray-500 dark:text-gray-400 italic">No hay alumnos registrados en el sistema actualmente.</p>
+        </div>
+        {% endif %}
+    </div>
+  </div>
+
+</div>
+{% endblock %}

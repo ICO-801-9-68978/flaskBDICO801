@@ -1,0 +1,39 @@
+{% extends "layout.html" %} 
+{% block container %} 
+
+<div class="py-12 relative overflow-x-auto sm:rounded-lg flex justify-center">
+  <form action="" method="POST" class="bg-white dark:bg-gray-800 p-8 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 max-w-lg w-full">
+    
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+    
+    <h2 class="text-2xl font-bold mb-2 text-teal-600 dark:text-teal-400 text-center">Inscribir Alumno</h2>
+    <p class="text-center text-gray-500 dark:text-gray-400 mb-6">Asigna un estudiante al curso seleccionado.</p>
+
+    <div class="mb-6 bg-teal-50 p-4 rounded-lg border border-teal-100 dark:bg-gray-900 dark:border-gray-600">
+        <p class="text-sm text-gray-500 dark:text-gray-400">Curso seleccionado:</p>
+        <p class="text-lg font-bold text-gray-900 dark:text-white">{{ curso.nombre }} <span class="text-sm font-normal text-gray-500">(ID: {{ curso.id }})</span></p>
+    </div>
+
+    <div class="mb-8">
+      <label for="alumno_id" class="block mb-2 text-sm font-bold text-gray-900 dark:text-white">Selecciona al alumno:</label>
+      <select id="alumno_id" name="alumno_id" required class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-teal-500 focus:border-teal-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+        <option value="" disabled selected>-- Elige un alumno matriculado --</option>
+        {% for value, label in form.alumno_id.choices %}
+          <option value="{{ value }}">{{ label }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    
+    <div class="flex flex-col sm:flex-row gap-4 justify-center mt-6">
+      <input 
+        type="submit" 
+        value="Guardar Inscripción" 
+        class="cursor-pointer flex-1 text-white bg-teal-600 hover:bg-teal-700 focus:ring-4 focus:outline-none focus:ring-teal-300 font-medium rounded-lg text-sm px-5 py-3 text-center dark:bg-teal-600 dark:hover:bg-teal-700 dark:focus:ring-teal-800 transition-colors shadow-md"
+      />
+      <a href="{{ url_for('inscripciones.inscripciones') }}" class="flex-1 text-white bg-gray-500 hover:bg-gray-600 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-3 text-center flex justify-center items-center dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800 transition-colors shadow-md">
+        Cancelar
+      </a>
+    </div>
+  </form>
+</div>
+{% endblock %}

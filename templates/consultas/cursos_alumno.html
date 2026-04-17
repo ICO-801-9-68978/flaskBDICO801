@@ -1,0 +1,48 @@
+{% extends "layout.html" %} 
+{% block container %}
+<div class="py-10 px-4 max-w-5xl mx-auto">
+  <div class="mb-6">
+    <a href="{{ url_for('consultas.menu_consultas') }}" class="inline-flex items-center gap-2 px-5 py-2.5 bg-gray-600 text-white font-medium rounded-lg hover:bg-gray-700 transition-colors shadow">
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+      Regresar a Consultas
+    </a>
+  </div>
+
+  <div class="bg-white dark:bg-gray-800 p-8 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700">
+    <h2 class="text-2xl font-bold text-teal-600 dark:text-teal-400 mb-6">Consulta: Cursos por Alumno</h2>
+    
+    <form action="" method="POST" class="mb-8 flex gap-4 items-end bg-teal-50 dark:bg-gray-900 p-6 rounded-xl border border-teal-100 dark:border-gray-700">
+      <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+      <div class="flex-1">
+        <label for="alumno_id" class="block mb-2 text-sm font-bold text-gray-900 dark:text-white">Selecciona al Alumno:</label>
+        <select id="alumno_id" name="alumno_id" class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-teal-500 focus:border-teal-500 block w-full p-2.5 dark:bg-gray-800 dark:border-gray-600 dark:text-white">
+          {% for value, label in form.alumno_id.choices %}
+            <option value="{{ value }}">{{ label }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <button type="submit" class="text-white bg-teal-600 hover:bg-teal-700 font-bold rounded-lg px-8 py-2.5 shadow-md transition-colors">Ver Horario</button>
+    </form>
+
+    {% if alumno %}
+      <h3 class="text-lg font-bold text-gray-800 dark:text-white mb-4">
+        Cursos inscritos para: <span class="text-teal-600">{{ alumno.nombre }} {{ alumno.apaterno }}</span>
+      </h3>
+      
+      {% if cursos %}
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        {% for cur in cursos %}
+        <div class="p-4 bg-white dark:bg-gray-700 border-l-4 border-teal-500 shadow-sm rounded-r-lg">
+          <p class="font-bold text-gray-900 dark:text-white text-lg">{{ cur.nombre }}</p>
+          <p class="text-sm text-gray-500 dark:text-gray-400 italic mb-2">{{ cur.descripcion }}</p>
+          <p class="text-xs text-teal-700 dark:text-teal-300 font-semibold">Profesor: {{ cur.maestro.nombre }} {{ cur.maestro.apellidos }}</p>
+        </div>
+        {% endfor %}
+      </div>
+      {% else %}
+        <div class="p-4 bg-orange-50 text-orange-700 rounded-lg">Este alumno no tiene materias inscritas.</div>
+      {% endif %}
+    {% endif %}
+  </div>
+</div>
+{% endblock %}
